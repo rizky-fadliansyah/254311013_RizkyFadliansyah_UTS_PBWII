@@ -4,13 +4,28 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\penjualController;
 use App\Http\Controllers\TambahUlasanController;
 use App\Models\penjual;
+use App\Models\Kategori;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 // 1. Route Beranda / Dashboard Pembeli
-Route::get('/', function () {
-    $penjualList = penjual::all();
-    return view('dashboard', compact('penjualList'));
+Route::get('/', function (Request $request) {
+    $query = penjual::with(['ulasan', 'kategori']);
+    if ($request->filled('cari')) {
+        $search = $request->input('cari');
+        $query->where(function ($q) use ($search) {
+            $q->where('Nama_Penjual', 'like', "%{$search}%")
+              ->orWhere('Alamat_Penjual', 'like', "%{$search}%");
+        });
+    }
+    if ($request->filled('kategori')) {
+        $kategoriId = $request->input('kategori');
+        $query->where('Id_Kategori', $kategoriId);
+    }
+    $penjualList = $query->get();
+    $kategoriList = Kategori::all();
+    return view('dashboard', compact('penjualList', 'kategoriList'));
 })->name('dashboard');
 
 // 2. Auth Routes Guest (Login & Register khusus Penjual)
@@ -34,7 +49,8 @@ Route::middleware('auth')->group(function () {
     // Halaman Form Edit Data Penjual
     Route::get('/penjual/edit', function () {
         $penjual = penjual::find(Auth::id());
-        return view('editPenjual', compact('penjual'));
+        $kategoriList = Kategori::all();
+        return view('editPenjual', compact('penjual', 'kategoriList'));
     })->name('penjual.edit');
 
     // Halaman Lihat Ulasan khusus Penjual

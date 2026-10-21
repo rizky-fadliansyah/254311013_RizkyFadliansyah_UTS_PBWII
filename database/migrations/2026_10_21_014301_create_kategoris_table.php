@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('penjual', function (Blueprint $table) {
-            $table->id('Id_Penjual'); // Primary Key kustom
-            $table->string('Nama_Penjual', 100);
-            $table->string('Deskripsi', 255);
-            $table->string('Alamat_Penjual', 255);
-            $table->string('No_Telp_Penjual', 15);
+        Schema::create('kategoris', function (Blueprint $table) {
+            $table->id('Id_Kategori');
+            $table->string('Nama_Kategori');
+            $table->string('Deskripsi_Kategori')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('penjual');
+        Schema::dropIfExists('kategoris');
     }
 };

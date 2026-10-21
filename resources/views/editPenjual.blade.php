@@ -28,6 +28,19 @@
 
     <form method="POST" action="{{ route('penjual.store') }}">
         @csrf
+        <div class="flex flex-col md:flex-row md:items-start gap-2 md:gap-5 mb-6">
+            <label for="Id_Kategori" class="md:w-[140px] text-[13px] font-bold md:pt-4">Kategori Toko</label>
+            <select id="Id_Kategori" name="Id_Kategori" required
+                    class="w-full max-w-[550px] px-3.5 py-3.5 border border-[#dde1ea] rounded-xl text-sm outline-none focus:border-[#2878eb] bg-white">
+                <option value="">-- Pilih Kategori Toko --</option>
+                @foreach($kategoriList as $k)
+                    <option value="{{ $k->Id_Kategori }}" 
+                        {{ old('Id_Kategori', $penjual->Id_Kategori ?? '') == $k->Id_Kategori ? 'selected' : '' }}>
+                        {{ $k->Nama_Kategori }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
         @foreach([
             ['Nama_Penjual', 'Nama Toko/Penjual', true],
             ['Alamat_Penjual', 'Alamat', true],

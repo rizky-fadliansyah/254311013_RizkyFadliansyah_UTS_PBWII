@@ -10,6 +10,7 @@ class penjual extends Model
     protected $primaryKey = 'Id_Penjual';
 
     protected $fillable = [
+        'Id_Kategori',
         'Nama_Penjual',
         'Deskripsi',
         'Alamat_Penjual',
@@ -19,5 +20,9 @@ class penjual extends Model
     public function ulasan()
     {
         return $this->hasMany(ulasan::class, 'Id_Penjual', 'Id_Penjual');
+    }
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'Id_Kategori', 'Id_Kategori');
     }
 }
