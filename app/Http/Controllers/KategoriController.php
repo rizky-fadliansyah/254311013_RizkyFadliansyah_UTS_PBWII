@@ -29,11 +29,13 @@ class KategoriController extends Controller
         $request->validate([
             'Nama_Kategori' => 'required|string|max:255',
             'Deskripsi_Kategori' => 'nullable|string',
+            'jumlah_produk' => 'nullable|integer',
         ]);
 
         Kategori::create([
             'Nama_Kategori' => $request->Nama_Kategori,
             'Deskripsi_Kategori' => $request->Deskripsi_Kategori,
+            'jumlah_produk' => $request->jumlah_produk,
         ]);
 
         return back()->with('success', 'Kategori berhasil ditambahkan!');
@@ -58,13 +60,15 @@ class KategoriController extends Controller
 
         $request->validate([
             'Nama_Kategori' => 'required|string|max:255',
-            'Deskripsi_Kategori' => 'nullable|string',
+            'Deskripsi_Kategori' => 'required|string',
+            'jumlah_produk' => 'required|integer',
         ]);
 
         $kategori = Kategori::findOrFail($id);
         $kategori->update([
             'Nama_Kategori' => $request->Nama_Kategori,
             'Deskripsi_Kategori' => $request->Deskripsi_Kategori,
+            'jumlah_produk' => $request->jumlah_produk,
         ]);
 
         return back()->with('success', 'Kategori berhasil diperbarui!');

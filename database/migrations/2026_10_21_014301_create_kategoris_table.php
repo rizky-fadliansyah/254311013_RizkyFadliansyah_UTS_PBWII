@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('Id_Kategori');
             $table->string('Nama_Kategori');
             $table->string('Deskripsi_Kategori')->nullable();
+            $table->integer('jumlah_produk')->nullable();
             $table->timestamps();
         });
     }

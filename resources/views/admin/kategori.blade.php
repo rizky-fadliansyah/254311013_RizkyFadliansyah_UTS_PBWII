@@ -30,7 +30,11 @@
                        class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:border-[#2878eb]">
             </div>
             <div>
-                <input type="text" name="Deskripsi_Kategori" placeholder="Deskripsi Singkat (opsional)"
+                <input type="text" name="Deskripsi_Kategori" placeholder="Deskripsi Singkat"
+                       class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:border-[#2878eb]">
+            </div>
+            <div>
+                <input type="number" name="jumlah_produk" placeholder="Jumlah Produk"
                        class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:border-[#2878eb]">
             </div>
         </div>
@@ -47,6 +51,7 @@
                     <th class="p-3">ID</th>
                     <th class="p-3">Nama Kategori</th>
                     <th class="p-3">Deskripsi</th>
+                    <th class="p-3">Jumlah Produk</th>
                     <th class="p-3 text-center">Aksi</th>
                 </tr>
             </thead>
@@ -56,6 +61,7 @@
                         <td class="p-3 font-semibold">{{ $k->Id_Kategori }}</td>
                         <td class="p-3 font-bold text-[#2878eb]">{{ $k->Nama_Kategori }}</td>
                         <td class="p-3 text-gray-500">{{ $k->Deskripsi_Kategori ?? '-' }}</td>
+                        <td class="p-3 text-gray-500">{{ $k->jumlah_produk ?? 0 }}</td>
                         <td class="p-3 text-center flex justify-center gap-2">
                             <!-- Tombol Edit -->
                             <a href="{{ route('kategori.edit', $k->Id_Kategori) }}" 
