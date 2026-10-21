@@ -38,20 +38,23 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        // Validate the login form data
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
         ]);
 
-        // Attempt to log the user in
-        if (Auth::attempt($request->only('email', 'password'))) {
-            // Redirect to the home page or dashboard
-            return redirect()->route('homePenjual');
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            // Redirect sesuai Role
+            if (Auth::user()->role === 'admin') {
+                return redirect()->route('kategori.index'); // Langsung ke halaman kelola kategori
+            }
+
+            return redirect()->route('homePenjual'); // Jika penjual biasa
         }
 
-        // If login fails, redirect back with an error message
-        return redirect()->back()->withErrors(['email' => 'Invalid credentials.']);
+        return back()->withErrors(['email' => 'Email atau password salah.']);
     }
 
     public function logout(Request $request)
