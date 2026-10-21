@@ -5,7 +5,6 @@
 <div class="max-w-4xl mx-auto my-8 p-6 bg-white rounded-2xl shadow-sm border border-[#dde1ea]">
     <h1 class="text-2xl font-bold mb-6">Kelola Kategori Toko</h1>
 
-    <!-- Notifikasi Sukses -->
     @if(session('success'))
         <div class="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded-lg text-sm">
             {{ session('success') }}
@@ -18,7 +17,7 @@
         <h2 class="text-lg font-bold mb-3">Tambah Kategori Baru</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
             <div>
-                <input type="text" name="Nama_Kategori" placeholder="Nama Kategori (contoh: Elektronik)" required
+                <input type="text" name="Nama_Kategori" placeholder="Nama Kategori" required
                        class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:border-[#2878eb]">
             </div>
             <div>
@@ -29,6 +28,7 @@
         <button type="submit" class="px-4 py-2 bg-[#2878eb] text-white rounded-lg text-sm font-bold hover:bg-blue-600">
             + Tambah Kategori
         </button>
+        <a href="{{ route('dashboard.index') }}" class="text-sm text-[#2878eb] font-bold hover:underline">&larr; Logout</a>
     </form>
 
     <!-- Tabel Daftar Kategori -->
@@ -48,7 +48,14 @@
                         <td class="p-3 font-semibold">{{ $k->Id_Kategori }}</td>
                         <td class="p-3 font-bold text-[#2878eb]">{{ $k->Nama_Kategori }}</td>
                         <td class="p-3 text-gray-500">{{ $k->Deskripsi_Kategori ?? '-' }}</td>
-                        <td class="p-3 text-center">
+                        <td class="p-3 text-center flex justify-center gap-2">
+                            <!-- Tombol Edit -->
+                            <a href="{{ route('kategori.edit', $k->Id_Kategori) }}" 
+                               class="px-3 py-1 bg-amber-500 text-white rounded-md text-xs font-bold hover:bg-amber-600">
+                                Edit
+                            </a>
+
+                            <!-- Tombol Hapus -->
                             <form action="{{ route('kategori.destroy', $k->Id_Kategori) }}" method="POST" 
                                   onsubmit="return confirm('Yakin ingin menghapus kategori ini?')">
                                 @csrf
