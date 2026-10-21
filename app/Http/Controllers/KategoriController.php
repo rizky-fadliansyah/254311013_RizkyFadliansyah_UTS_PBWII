@@ -10,14 +10,13 @@ class KategoriController extends Controller
 {
     public function index()
     {
-        // Pengecekan role admin
+
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Akses khusus Admin.');
         }
 
         $kategoriList = Kategori::all();
 
-        // UBAH BARIS INI: Pastikan me-return view(), BUKAN langsung Kategori::all()
         return view('admin.kategori', compact('kategoriList'));
     }
 

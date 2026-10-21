@@ -8,11 +8,6 @@ use App\Http\Controllers\ResponController;
 use App\Http\Controllers\TambahUlasanController;
 use App\Http\Controllers\KategoriController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-*/
 
 // 1. Public / Guest Routes (Bisa Diakses Siapa Saja)
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
