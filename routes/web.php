@@ -7,18 +7,9 @@ use App\Http\Controllers\PenjualController;
 use App\Http\Controllers\ResponController;
 use App\Http\Controllers\TambahUlasanController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-*/
 
 // 1. Public / Guest Routes (Beranda & Browsing Penjual)
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-
-Route::prefix('penjual')->group(function () {
-    Route::get('/{id}', [PenjualController::class, 'show'])->name('penjual.detail');
-});
 
 Route::prefix('ulasan')->group(function () {
     Route::get('/{id}', [TambahUlasanController::class, 'create'])->name('ulasan.create');
@@ -45,4 +36,8 @@ Route::middleware('auth')->group(function () {
     // Ulasan & Respon Penjual
     Route::get('/penjual/ulasan', [PenjualController::class, 'ulasan'])->name('penjual.ulasan');
     Route::post('/respon', [ResponController::class, 'store'])->name('respon.store');
+});
+
+Route::prefix('penjual')->group(function () {
+    Route::get('/{id}', [PenjualController::class, 'show'])->name('penjual.detail');
 });

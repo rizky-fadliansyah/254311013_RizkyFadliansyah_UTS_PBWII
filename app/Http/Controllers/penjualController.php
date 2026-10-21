@@ -45,7 +45,7 @@ class PenjualController extends Controller
     /**
      * Menampilkan detail toko penjual berdasarkan ID (Public View).
      */
-    public function show(int $id): View
+    public function show($id): View
     {
         $penjual = Penjual::findOrFail($id);
 
@@ -58,7 +58,7 @@ class PenjualController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validatedData = $request->validate([
-            'Id_Kategori'     => ['required', 'exists:kategori,Id_Kategori'],
+            'Id_Kategori'     => ['required', 'exists:kategoris,Id_Kategori'],
             'Nama_Penjual'    => ['required', 'string', 'max:255'],
             'Deskripsi'       => ['nullable', 'string'],
             'Alamat_Penjual'  => ['required', 'string', 'max:255'],
